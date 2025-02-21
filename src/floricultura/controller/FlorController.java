@@ -39,20 +39,22 @@ public class FlorController implements FlorRepository {
 
 		@Override
 		public void buscarItemPorNome(String nome) {
-			for (Item item : itens) {
-	            if (item.getNome().equalsIgnoreCase(nome)) {
-	                item.visualizar();
+			for (Item itemBusca : itens) {
+	            if (itemBusca.getNome().equalsIgnoreCase(nome)) {
+	                itemBusca.visualizar();
 	                return;
 	            }
 	        }
 	        System.out.println("Item não encontrado.");			
 		}
-
+		
 		@Override
 		public void atualizarItem(Item cItem) {
-			for (Item item : itens) {
-	            if (item.getNome().equalsIgnoreCase(cItem.getNome())) {
-	                item.setPreco(cItem.getPreco());
+			for (Item itemBusca : itens) {
+				System.out.println(itemBusca.getNome());
+	            if (itemBusca.getNome().equals(cItem.getNome())) {
+	            	System.out.println("*********Caiu na controller");
+	                itemBusca.setPreco(cItem.getPreco());
 	                System.out.println("Item " + cItem.getNome() + " atualizado com sucesso.");
 	                return;
 	            }
@@ -62,6 +64,7 @@ public class FlorController implements FlorRepository {
 
 		@Override
 		public void deletarItem(String nome) {
+			
 			for (Item item : itens) {
 	            if (item.getNome().equalsIgnoreCase(nome)) {
 	                itens.remove(item);
@@ -72,8 +75,6 @@ public class FlorController implements FlorRepository {
 	        System.out.println("Item não encontrado para deletar.");
 	 
 	    }
-
-		
 	}
 	
 	    	

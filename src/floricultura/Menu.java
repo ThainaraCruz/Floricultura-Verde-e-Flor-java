@@ -116,6 +116,9 @@ public class Menu {
 			case 4:
 				System.out.println("\nAtualizar dados dos Itens");
 				
+                System.out.print("Digite o tipo do item a ser atualizado (1- Flor ou 2- Produto) ");
+                int cod = leia.nextInt();
+                
 				System.out.print("\nDigite o nome do item que deseja atualizar: ");
                 String nomeAtualizar = leia.nextLine();
                 
@@ -123,10 +126,18 @@ public class Menu {
                 System.out.print("Digite o novo preço: ");
                 double novoPreco = leia.nextDouble();
                 
+                leia.nextLine();
                 System.out.print("Digite a nova descrição: ");
                 String novaDescricao = leia.nextLine();               
-                //public Flor(String nome, double preco, String descricao, int estoque)
-                flor.atualizarItem(new Flor(nomeAtualizar, novoPreco, novaDescricao));
+                
+                if (cod == 1) {
+                	System.out.println("********Cai aqui");
+                	flor.atualizarItem(new Flor(nomeAtualizar, novoPreco, novaDescricao));
+                
+                } else {
+                	flor.atualizarItem(new Produto(nomeAtualizar, novoPreco, novaDescricao));
+                }  
+                
 				keyPress(); 
 				break;
 			case 5:
