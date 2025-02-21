@@ -1,17 +1,23 @@
 package floricultura;
 
 import java.io.IOException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import floricultura.controller.FlorController;
 import floricultura.util.Cores;
+import floricultura.model.Flor;
+import floricultura.model.Produto;
 
 public class Menu {
 
 	public static void main(String[] args) {
 	
+	    FlorController flor = new FlorController();
 		Scanner leia = new Scanner(System.in);
     
 		int opcao = 0, tipo;
+		String nomeBusca;
 	
 		while (true) {
 
@@ -33,9 +39,14 @@ public class Menu {
 			System.out.println("Entre com a opção desejada:                          ");
 			System.out.println("                                                     " + Cores.TEXT_RESET);
 			
-			opcao = leia.nextInt();
-	
-			if (opcao == 9) {
+			try {
+				opcao = leia.nextInt();
+			}catch(InputMismatchException e){
+				System.out.println("\nDigite valores inteiros!");
+				leia.nextLine();
+				opcao=0;
+			}
+			if (opcao == 6) {
 				System.out.println("\nA Floricultura Verde e Flor agradece a sua colaboração!");
 				sobre();
 	             		leia.close();
@@ -46,26 +57,86 @@ public class Menu {
 			case 1:
 				System.out.println("\n Cadastrar um Item novo");
 				
+				do {
+					System.out.println("Digite o Tipo do Item (1-Flor ou 2-Produto): ");
+					tipo = leia.nextInt();
+				}while(tipo < 1 && tipo > 2);
+							
+				switch(tipo) {
+					case 1 -> {
+						System.out.println("\nCadastro de Flor:");
+						leia.nextLine();
+	                    System.out.print("Digite o nome da flor: ");
+	                    String nomeFlor = leia.nextLine();
+	                   
+	                    System.out.print("Digite o preço da flor: ");
+	                    double precoFlor = leia.nextDouble();
+	                    leia.nextLine();
+	                    
+	                    System.out.print("Digite a descrição da flor: ");
+	                    String descricaoFlor = leia.nextLine();	                    	                   
+	                    
+	                    flor.cadastrarFlor(new Flor(nomeFlor, precoFlor, descricaoFlor));	                   
+					}
+					case 2 -> {
+						System.out.println("\nCadastro de Produto:");
+						leia.nextLine();
+	                    System.out.print("Digite o nome do produto: ");
+	                    String nomeProduto = leia.nextLine();
+	                    
+	                    System.out.print("Digite o preço do produto: ");
+	                    double precoProduto = leia.nextDouble();
+	                    leia.nextLine();
+	                    
+	                    System.out.print("Digite a descrição do produto: ");
+	                    String descricaoProduto = leia.nextLine();
+	                    
+	                    flor.cadastrarProduto(new Produto(nomeProduto, precoProduto, descricaoProduto));	                    
+				}	
+				}	
 				keyPress();
 				break;
 			case 2:
-				System.out.println("\n Listar todos os Itens");
+				System.out.println("\nListar todos os Itens");
+				
+				flor.exibirItens();
 				
 				keyPress();
 				break;
 			case 3:
-				System.out.println("\n Buscar Item por Nome");
+				System.out.println("\nBuscar Item por Nome");
 				
+				leia.nextLine();
+				System.out.println("Digite o nome: ");
+				nomeBusca = leia.nextLine();
+				
+				flor.buscarItemPorNome(nomeBusca);
 				keyPress();
 				break;
 			case 4:
-				System.out.println("\n Atualizar dados dos i");
+				System.out.println("\nAtualizar dados dos Itens");
 				
-				keyPress();
+				System.out.print("\nDigite o nome do item que deseja atualizar: ");
+                String nomeAtualizar = leia.nextLine();
+                
+                leia.nextLine();
+                System.out.print("Digite o novo preço: ");
+                double novoPreco = leia.nextDouble();
+                
+                System.out.print("Digite a nova descrição: ");
+                String novaDescricao = leia.nextLine();               
+                //public Flor(String nome, double preco, String descricao, int estoque)
+                flor.atualizarItem(new Flor(nomeAtualizar, novoPreco, novaDescricao));
+				keyPress(); 
 				break;
 			case 5:
-				System.out.println("\n Apagar um Item");
-			
+				System.out.println("\nApagar um Item");
+				
+				leia.nextLine();
+				System.out.print("\nDigite o nome do item que deseja deletar: ");
+                String nomeDeletar = leia.nextLine();
+                flor.deletarItem(nomeDeletar);
+				
 				keyPress();	
 				break;
 			default:

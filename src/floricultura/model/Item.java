@@ -18,7 +18,15 @@ public abstract class Item {
         return preco;
     }
 
-    public void visualizar() {
+    public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public void setPreco(double preco) {
+		this.preco = preco;
+	}
+
+	public void visualizar() {
     	
     }; 
 }
