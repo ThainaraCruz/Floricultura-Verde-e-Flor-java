@@ -50,15 +50,14 @@ public class FlorController implements FlorRepository {
 		
 		@Override
 		public void atualizarItem(Item cItem) {
-			for (Item itemBusca : itens) {
-				System.out.println(itemBusca.getNome());
-	            if (itemBusca.getNome().equals(cItem.getNome())) {
-	            	System.out.println("*********Caiu na controller");
+			var itemBusca = buscarNaCollection(cItem.getNome());
+
+	            if (itemBusca != null) {
 	                itemBusca.setPreco(cItem.getPreco());
 	                System.out.println("Item " + cItem.getNome() + " atualizado com sucesso.");
 	                return;
 	            }
-	        }
+	        
 	        System.out.println("Item não encontrado para atualização.");	       			
 		}
 
@@ -75,6 +74,14 @@ public class FlorController implements FlorRepository {
 	        System.out.println("Item não encontrado para deletar.");
 	 
 	    }
+		
+		public Item buscarNaCollection(String nome) {
+			for(var lista : itens) {
+				if(lista.getNome().equalsIgnoreCase(nome));
+					return lista;
+			}
+		
+		return null;
 	}
 	
-	    	
+}	    	

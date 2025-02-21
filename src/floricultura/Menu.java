@@ -130,8 +130,7 @@ public class Menu {
                 System.out.print("Digite a nova descrição: ");
                 String novaDescricao = leia.nextLine();               
                 
-                if (cod == 1) {
-                	System.out.println("********Cai aqui");
+                if (cod == 1) {          
                 	flor.atualizarItem(new Flor(nomeAtualizar, novoPreco, novaDescricao));
                 
                 } else {
